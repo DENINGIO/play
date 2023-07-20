@@ -1,0 +1,95 @@
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+
+
+
+	dependencies {
+	        implementation 'com.github.akndmr:ColorPrefUtil:1.0.1'
+	}
+
+
+
+
+(setTheme(R.style.id)).
+
+
+
+
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">  
+    <!-- Customize your theme here. -->  
+    <item name="colorPrimary">@color/colorPrimary</item>  
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>  
+    <item name="colorAccent">@color/colorAccent</item>  
+</style>  
+  
+<style name="AppThemePurple" parent="Theme.AppCompat.Light.DarkActionBar">  
+    <item name="colorPrimary">@color/colorPrimaryPurple</item>  
+    <item name="colorPrimaryDark">@color/colorPrimaryDarkPurple</item>  
+    <item name="colorAccent">@color/colorAccentPurple</item>  
+</style>
+
+
+
+
+
+    @Override  
+protected void onCreate(Bundle savedInstanceState) {  
+    super.onCreate(savedInstanceState);  
+  
+    // Set theme before setContentView  
+    mSharedPreferences = getSharedPreferences(PREF_COLOR, MODE_PRIVATE);  
+    int themeSelected = mSharedPreferences.getInt(THEME_SELECTED, R.style.AppTheme);  
+    ColorPrefUtil.changeThemeStyle(this, themeSelected);  
+  
+    setContentView(R.layout.activity_main);  
+  
+//...  
+}  
+
+int selectedBackgroundColorId;
+
+@Override  
+protected void onCreate(Bundle savedInstanceState) {  
+    super.onCreate(savedInstanceState);  
+
+// Get selected colorId from preferences, if null, use default background color(colorPrimary)
+selectedBackgroundColorId = mSharedPreferences.getInt(COLOR_SELECTED, R.color.colorPrimary);
+
+// Single view  
+mButton = findViewById(R.id.button);  
+ColorPrefUtil.changeBackgroundColorOfSingleView(this, mButton, selectedBackgroundColorId);  
+  
+// All views inside parent layout
+mConstraintLayout = findViewById(R.id.cl_container);
+ColorPrefUtil.changeBackgroundColorOfChildViews(this, mConstraintLayout, selectedBackgroundColorId);  
+}
+
+
+
+// All views inside given parent layout
+  ColorPrefUtil.changeTextColorOfChildViews(this, mConstraintLayout, textColorId, hintColorId);  
+ 
+ // Single view
+  ColorPrefUtil.changeTextColorOfSingleView(this, mTextView, textColorId, hintColorId);
+
+
+
+ColorPrefUtil.changeTintColorOfIcon(this, mImageViewIcon, iconTintColorId);
+
+
+ColorPrefUtil.changeBackgroundDrawableOfChildViews(this, mConstraintLayout, backgroundColorId);  
+ColorPrefUtil.changeBackgroundDrawableOfSingleView(this, mButton, backgroundDrawableId);
+
+
+
+ColorPrefUtil.changeColorOfItemsOfNavView(mNavigationView, iconColorId, textColorId);
+
+
+
+ColorPrefUtil.changeColorOfTabLayout(this, mTabLayout, backgroundColorId, selectedTabColorId, indicatorColorId, textColorId);
